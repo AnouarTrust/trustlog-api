@@ -1,0 +1,61 @@
+import numpy as np
+from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import List
+
+app = FastAPI()
+
+class CostPayload(BaseModel):
+    calls: List[float]
+
+@app.post("/analyze")
+def analyze_costs(payload: CostPayload):
+    costs = np.array(payload.calls)
+    
+    if len(costs) < 3:
+        return {
+            "variance_ratio": 0.0,
+            "autocorrelation": 0.0,
+            "convexity": 0.0,
+            "status": "GREEN",
+            "message": "Data insufficient for baseline."
+        }
+
+    mean_cost = np.mean(costs)
+    variance = np.var(costs)
+    
+    if variance == 0:
+        autocorr = 0.0
+        variance_ratio = 0.0
+    else:
+        # Autocorrelation (Lag 1)
+        covariance = np.sum((costs[:-1] - mean_cost) * (costs[1:] - mean_cost)) / (len(costs) - 1)
+        autocorr = covariance / variance
+        
+        # Variance Ratio
+        first_differences = np.diff(costs)
+        variance_ratio = np.var(first_differences) / variance
+
+    # Convexity Approximation (Second Derivative Average)
+    first_diff = np.diff(costs)
+    second_diff = np.diff(first_diff)
+    convexity = np.mean(second_diff)
+
+    # Threshold Logic
+    status = "GREEN"
+    message = "Agent behaviour normal."
+
+    if convexity > 1.0 or autocorr > 0.85:
+        status = "RED"
+        message = "Agent behaviour abnormal. Costs accelerating."
+    elif convexity > 0.4 or autocorr > 0.6:
+        status = "AMBER"
+        message = "Warning. Statistical drift detected."
+
+    return {
+        "variance_ratio": round(float(variance_ratio), 3),
+        "autocorrelation": round(float(autocorr), 3),
+        "convexity": round(float(convexity), 3),
+        "status": status,
+        "message": message
+    }
