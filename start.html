@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get started — Agentsitter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root {
+  --cream: #faf9f6;
+  --white: #ffffff;
+  --ink: #1a1814;
+  --muted: #7a7570;
+  --border: #e8e4dc;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --green-border: #bbf7d0;
+  --serif: 'Lora', Georgia, serif;
+  --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 3rem;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2rem;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--ink);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-dot {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  animation: breathe 2.5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:0.5;transform:scale(0.75)}
+}
+
+.logo-name {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+h1 em { font-style: italic; color: var(--muted); }
+
+.subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+input[type="email"] {
+  width: 100%;
+  height: 48px;
+  padding: 0 1.1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+  margin-bottom: 1rem;
+}
+
+input[type="email"]:focus { border-color: var(--ink); }
+input[type="email"]::placeholder { color: #bbb; }
+
+button {
+  width: 100%;
+  height: 48px;
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+button:hover { opacity: 0.85; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.success {
+  display: none;
+  background: var(--green-bg);
+  border: 1.5px solid var(--green-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.success h2 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.success p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.steps {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.steps h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  font-family: var(--mono);
+}
+
+.step {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 24px;
+  height: 24px;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+.step p strong { color: var(--ink); }
+
+footer {
+  margin-top: 2rem;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+footer a { color: var(--muted); text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <a href="/" class="logo">
+    <div class="logo-mark"><span class="logo-dot"></span></div>
+    <span class="logo-name">agentsitter</span>
+  </a>
+
+  <h1>Get your API key.<br><em>Start in 2 minutes.</em></h1>
+  <p class="subtitle">Enter your email and we'll send you a unique API key. Drop it into your agent and Agentsitter starts watching immediately.</p>
+
+  <div id="form-wrap">
+    <label for="email">Your email</label>
+    <input type="email" id="email" placeholder="you@example.com">
+    <button id="btn" onclick="getKey()">Send me my API key →</button>
+  </div>
+
+  <div class="success" id="success">
+    <h2>🟢 Check your inbox.</h2>
+    <p>Your API key is on its way. Should land in the next 30 seconds. Check your spam folder if you don't see it.</p>
+  </div>
+
+  <div class="steps">
+    <h3>What happens next</h3>
+    <div class="step">
+      <div class="step-num">1</div>
+      <p>You get an email with your <strong>unique API key</strong> and the exact code to add to your agent.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <p>Download <strong>agentsitter.py</strong> from GitHub and drop it into your project folder.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <p>Add three lines to your agent. Agentsitter starts watching. You get a <strong>daily email at 8am</strong> with your agent's health status.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="/">← Back to agentsitter.net</a>
+</footer>
+
+<script>
+async function getKey() {
+  const email = document.getElementById('email').value;
+  const btn = document.getElementById('btn');
+
+  if (!email || !email.includes('@')) {
+    alert('Please enter a valid email.');
+    return;
+  }
+
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://trustlog-api.onrender.com/onboard', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    } else {
+      btn.textContent = 'Send me my API key →';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
+  } catch (e) {
+    btn.textContent = 'Send me my API key →';
+    btn.disabled = false;
+    alert('Something went wrong. Please try again.');
+  }
+}
+
+document.getElementById('email').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') getKey();
+});
+</script>
+
+</body>
+</html>
