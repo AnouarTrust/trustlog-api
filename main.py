@@ -197,6 +197,9 @@ def send_digests():
                 total_calls = 0
                 latest_status = "GREEN"
 
+            if total_calls == 0:
+                continue
+
             status_emoji = {"GREEN": "🟢", "AMBER": "🟡", "RED": "🔴"}.get(latest_status, "🟢")
             status_color = {"GREEN": "#15803d", "AMBER": "#d97706", "RED": "#dc2626"}.get(latest_status, "#15803d")
             status_bg = {"GREEN": "#f0fdf4", "AMBER": "#fffbeb", "RED": "#fef2f2"}.get(latest_status, "#f0fdf4")
