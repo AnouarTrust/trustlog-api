@@ -114,17 +114,29 @@ def onboard(payload: OnboardPayload):
                 <h1 style="font-size: 1.6rem; font-weight: 400; margin: 0.5rem 0 1rem;">Here's your API key.</h1>
                 <p style="color: #555; line-height: 1.7; margin-bottom: 1.5rem;">Add these three lines to your AI agent and Agentsitter starts watching immediately.</p>
                 <div style="background: #111; border-radius: 10px; padding: 1.25rem 1.5rem; font-family: monospace; font-size: 13px; color: #86efac; line-height: 1.8; margin-bottom: 1.5rem;">
+                    <span style="color:#6b7280"># Step 1: install</span><br>
+                    pip install agentsitter<br><br>
+                    <span style="color:#6b7280"># Step 2: add to your agent</span><br>
                     import agentsitter<br>
                     sitter = agentsitter.watch(api_key="{api_key}",<br>
                     &nbsp;&nbsp;alert="{payload.email}")<br><br>
-                    <span style="color:#6b7280"># After every API call:</span><br>
-                    sitter.track(cost=0.04)
+                    <span style="color:#6b7280"># Step 3: after every API call:</span><br>
+                    sitter.track(cost=0.004)
+                </div>
+                <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
+                    <p style="font-size: 12px; font-family: monospace; color: #92400e; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">What number goes in cost= ?</p>
+                    <p style="font-size: 13px; color: #555; line-height: 1.8; margin: 0;">
+                        GPT-4o &rarr; use <strong>0.005</strong><br>
+                        Claude Sonnet &rarr; use <strong>0.004</strong><br>
+                        Groq Llama &rarr; use <strong>0.0001</strong><br>
+                        Not sure? &rarr; use <strong>0.01</strong> &mdash; Agentsitter detects patterns, not just totals. Consistency matters more than precision.
+                    </p>
                 </div>
                 <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
                     <p style="font-size: 12px; font-family: monospace; color: #15803d; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;">Your API key</p>
                     <p style="font-size: 16px; font-family: monospace; font-weight: 600; color: #111; margin: 0;">{api_key}</p>
                 </div>
-                <a href="https://github.com/AnouarTrust/agentsitter" style="display: inline-block; margin-top: 1.25rem; background: #111; color: #fff; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">Download agentsitter.py →</a>
+                <a href="https://pypi.org/project/agentsitter/" style="display: inline-block; margin-top: 1.25rem; background: #111; color: #fff; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">View on PyPI →</a>
                 <p style="margin-top: 2rem; color: #aaa; font-size: 13px;">Built in Manchester by Anouar · <a href="https://agentsitter.net" style="color: #aaa;">agentsitter.net</a></p>
             </div>
             """
