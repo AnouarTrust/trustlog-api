@@ -7,7 +7,7 @@ import resend
 from supabase import create_client, Client
 import os
 import uuid
-from datetime import datetime
+from datetime import datetime, date
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "YOUR_SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "YOUR_SUPABASE_ANON_KEY")
@@ -129,7 +129,7 @@ def onboard(payload: OnboardPayload):
                         GPT-4o &rarr; use <strong>0.005</strong><br>
                         Claude Sonnet &rarr; use <strong>0.004</strong><br>
                         Groq Llama &rarr; use <strong>0.0001</strong><br>
-                        Not sure? &rarr; use <strong>0.01</strong> &mdash; Agentsitter detects patterns, not just totals. Consistency matters more than precision.
+                        Not sure? &rarr; use <strong>0.01</strong>
                     </p>
                 </div>
                 <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
@@ -186,18 +186,17 @@ def send_digests():
             email = user["email"]
             api_key = user["api_key"]
 
-        try:
-            from datetime import date
-            today = date.today().isoformat()
-            costs_result = supabase.table("agent_costs").select("*").eq("api_key", api_key).gte("created_at", today).execute()
-            costs_data = costs_result.data
-            total_cost = sum([r["total_cost"] for r in costs_data]) if costs_data else 0
-            total_calls = sum([r["call_count"] for r in costs_data]) if costs_data else 0
-            latest_status = costs_data[0]["status"] if costs_data else "GREEN"
-        except:
-            total_cost = 0
-            total_calls = 0
-            latest_status = "GREEN"
+            try:
+                today = date.today().isoformat()
+                costs_result = supabase.table("agent_costs").select("*").eq("api_key", api_key).gte("created_at", today).execute()
+                costs_data = costs_result.data
+                total_cost = sum([r["total_cost"] for r in costs_data]) if costs_data else 0
+                total_calls = sum([r["call_count"] for r in costs_data]) if costs_data else 0
+                latest_status = costs_data[0]["status"] if costs_data else "GREEN"
+            except:
+                total_cost = 0
+                total_calls = 0
+                latest_status = "GREEN"
 
             if total_calls == 0:
                 continue
