@@ -186,7 +186,7 @@ def send_digests():
             email = user["email"]
             api_key = user["api_key"]
 
-            try:
+        try:
             from datetime import date
             today = date.today().isoformat()
             costs_result = supabase.table("agent_costs").select("*").eq("api_key", api_key).gte("created_at", today).execute()
