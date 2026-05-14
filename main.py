@@ -187,15 +187,17 @@ def send_digests():
             api_key = user["api_key"]
 
             try:
-                costs_result = supabase.table("agent_costs").select("*").eq("api_key", api_key).order("created_at", desc=True).limit(100).execute()
-                costs_data = costs_result.data
-                total_cost = sum([r["total_cost"] for r in costs_data]) if costs_data else 0
-                total_calls = sum([r["call_count"] for r in costs_data]) if costs_data else 0
-                latest_status = costs_data[0]["status"] if costs_data else "GREEN"
-            except:
-                total_cost = 0
-                total_calls = 0
-                latest_status = "GREEN"
+            from datetime import date
+            today = date.today().isoformat()
+            costs_result = supabase.table("agent_costs").select("*").eq("api_key", api_key).gte("created_at", today).execute()
+            costs_data = costs_result.data
+            total_cost = sum([r["total_cost"] for r in costs_data]) if costs_data else 0
+            total_calls = sum([r["call_count"] for r in costs_data]) if costs_data else 0
+            latest_status = costs_data[0]["status"] if costs_data else "GREEN"
+        except:
+            total_cost = 0
+            total_calls = 0
+            latest_status = "GREEN"
 
             if total_calls == 0:
                 continue
